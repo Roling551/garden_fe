@@ -1,0 +1,23 @@
+<div style="background-color: red; width: 100%; height:100%;" id="zoom-target">
+    @for (item of items.keyValuePairs(); track item;) {
+        <div
+            class="item"
+            [style.left.px]="getX(item.key.x, item.key.y) * distance"
+            [style.top.px]="getY(item.key.x, item.key.y) * distance"
+            
+        >
+            <img src="assets/pictures/ground.png"
+                [style.top.px]="(proportionY-proportionX)/2"
+                alt="My Image"
+            >
+            <div
+                class="diamond"
+                [style.width.px]="proportionX"
+                [style.height.px]="proportionY"
+                (click)="onItemClick(item.value)"
+                >
+            </div>
+
+        </div>
+    }
+</div>

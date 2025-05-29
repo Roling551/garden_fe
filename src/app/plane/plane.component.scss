@@ -1,0 +1,23 @@
+.item {
+    position: absolute;
+    white-space: nowrap;
+    overflow: visible;
+}
+
+.diamond {
+    position: absolute;
+    //background: linear-gradient(135deg,rgba(79, 172, 254, 0.5),rgba(0, 242, 254, 0.5));
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+img {
+    position: absolute;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    overflow: visible;
+    pointer-events: none;
+}
