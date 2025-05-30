@@ -1,0 +1,15 @@
+<app-isometric-tiling 
+    [tilesData]="items.keyValuePairs()"
+    [sizeX]="sizeX"
+    [sizeY]="sizeY"
+    [tileTemplate]="tileTemplate"
+    [backgroundImage]="backgroundImage"
+    (tileClick)="onTileClick($event)"
+/>
+
+<ng-template #tileTemplate let-value="value">
+    <img src="assets/pictures/ground.png"
+        [style.top.px]="(sizeY-sizeX)/2"
+        alt="My Image"
+    >
+</ng-template>

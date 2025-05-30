@@ -1,0 +1,27 @@
+<div class="full-size" id="zoom-target">
+
+    @if(backgroundImage) {
+        <div
+            class="background"
+            id="background"
+            [style.transform]="backgroundTransform"
+            [style.background-image] = "backgroundImage">
+        </div>   
+    }
+    @for (tileData of tilesData(); track tileData;) {
+        <div
+            class="item"
+            [style.left.px]="getX(tileData.key.x, tileData.key.y)"
+            [style.top.px]="getY(tileData.key.x, tileData.key.y)"
+        >
+            <div
+                class="diamond"
+                [style.width.px]="sizeX"
+                [style.height.px]="sizeY"
+                (click)="onTileClick(tileData)"
+                >
+            </div>
+            <ng-container *ngTemplateOutlet="tileTemplate; context: tileData"></ng-container>
+        </div>
+    }
+</div>
