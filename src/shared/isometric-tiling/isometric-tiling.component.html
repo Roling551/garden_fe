@@ -27,32 +27,24 @@
 
     @for(x of getRange(tileOnScreenX+3); track x) {
         @for(y of getRange(tileOnScreenY+3); track y) {
-            <div
-                class="item"
-                [style.left.px]="getTransformX(y+x+positionX-2, y-x+positionY)"
-                [style.top.px]="getTransformY(y+x+positionX-2, y-x+positionY)"
-            >
-                <div
-                    class="diamond"
-                    [style.width.px]="sizeX"
-                    [style.height.px]="sizeY"
-                    >
-                </div>
-                <ng-container *ngTemplateOutlet="tileTemplate"></ng-container>
-            </div>
-            <div
-                class="item"
-                [style.left.px]="getTransformX(y+x+positionX-2, y-x+positionY-1)"
-                [style.top.px]="getTransformY(y+x+positionX-2, y-x+positionY-1)"
-            >
-                <div
-                    class="diamond"
-                    [style.width.px]="sizeX"
-                    [style.height.px]="sizeY"
-                    >
-                </div>
-                <ng-container *ngTemplateOutlet="tileTemplate"></ng-container>
-            </div>
+            <ng-container *ngTemplateOutlet="fullTileTemplate; context: {x:y+x+positionX-2, y:y-x+positionY}"></ng-container>
+            <ng-container *ngTemplateOutlet="fullTileTemplate; context: {x:y+x+positionX-2, y:y-x+positionY-1}"></ng-container>
         }
     }
 </div>
+
+<ng-template #fullTileTemplate let-x="x" let-y="y">
+    <div
+        class="item"
+        [style.left.px]="getTransformX(x, y)"
+        [style.top.px]="getTransformY(x, y)"
+    >
+        <div
+            class="diamond"
+            [style.width.px]="sizeX"
+            [style.height.px]="sizeY"
+            >
+        </div>
+        <ng-container *ngTemplateOutlet="tileTemplate"></ng-container>
+    </div>
+</ng-template>
