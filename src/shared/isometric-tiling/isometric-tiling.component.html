@@ -8,11 +8,11 @@
             [style.background-image] = "backgroundImage">
         </div>   
     }
-    @for (tileData of tilesData(); track tileData;) {
+    <!--@for (tileData of tilesData(); track tileData;) {
         <div
             class="item"
-            [style.left.px]="getX(tileData.key.x, tileData.key.y)"
-            [style.top.px]="getY(tileData.key.x, tileData.key.y)"
+            [style.left.px]="getTransformX(tileData.key.x, tileData.key.y)"
+            [style.top.px]="getTransformY(tileData.key.x, tileData.key.y)"
         >
             <div
                 class="diamond"
@@ -23,5 +23,36 @@
             </div>
             <ng-container *ngTemplateOutlet="tileTemplate; context: tileData"></ng-container>
         </div>
+    }-->
+
+    @for(x of getRange(tileOnScreenX+3); track x) {
+        @for(y of getRange(tileOnScreenY+3); track y) {
+            <div
+                class="item"
+                [style.left.px]="getTransformX(y+x+positionX-2, y-x+positionY)"
+                [style.top.px]="getTransformY(y+x+positionX-2, y-x+positionY)"
+            >
+                <div
+                    class="diamond"
+                    [style.width.px]="sizeX"
+                    [style.height.px]="sizeY"
+                    >
+                </div>
+                <ng-container *ngTemplateOutlet="tileTemplate"></ng-container>
+            </div>
+            <div
+                class="item"
+                [style.left.px]="getTransformX(y+x+positionX-2, y-x+positionY-1)"
+                [style.top.px]="getTransformY(y+x+positionX-2, y-x+positionY-1)"
+            >
+                <div
+                    class="diamond"
+                    [style.width.px]="sizeX"
+                    [style.height.px]="sizeY"
+                    >
+                </div>
+                <ng-container *ngTemplateOutlet="tileTemplate"></ng-container>
+            </div>
+        }
     }
 </div>
