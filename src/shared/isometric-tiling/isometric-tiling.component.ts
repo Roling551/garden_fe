@@ -20,7 +20,12 @@ export class IsometricTilingComponent<T> implements OnInit, AfterViewInit {
 
   @Input({required: true}) tileTemplate!:TemplateRef<any>;
 
+  @Input() distanceToUpdate = 20;
+
+  @Input() allowedPixelsMovedForClick = 5;
+
   tileClick = output<{key:{x:number, y:number}, value:T}>();
+  updateTiles = output<{x: number, y:number}>();
 
   public positionRectX = 0
   public positionRectY = 0
@@ -28,16 +33,21 @@ export class IsometricTilingComponent<T> implements OnInit, AfterViewInit {
   public positionX = 0
   public positionY = 0
 
+  public centerPositionX = 0
+  public centerPositionY = 0
+
+  public previousCenterPositionX = 0
+  public previousCenterPositionY = 0
+
   public tileOnScreenX = 0
   public tileOnScreenY = 0
 
   currentTransform: Transform = {x:0, y:0, scale:1}
   panStartTransform: Transform | null = null
 
-  @Input() allowedPixelsMovedForClick = 5;
-
   ngOnInit(): void {
     this.calculateTilesOnScreen()
+    this.calcuateCenterPosition()
   }
 
   ngAfterViewInit() {
@@ -53,8 +63,7 @@ export class IsometricTilingComponent<T> implements OnInit, AfterViewInit {
       component.positionX = Math.floor((-transform.x/component.sizeX - transform.y/component.sizeY)/transform.scale)
       component.positionY = Math.floor((transform.x/component.sizeX - transform.y/component.sizeY)/transform.scale + 0.5)
       component.calculateTilesOnScreen()
-      console.log(component.tileOnScreenX)
-      console.log(component.tileOnScreenY)
+      component.calcuateCenterPosition()
     });
 
     instance.on('panstart', function(e: any) {
@@ -65,11 +74,31 @@ export class IsometricTilingComponent<T> implements OnInit, AfterViewInit {
   @HostListener('window:resize', ['$event'])
   onResize(event: UIEvent) {
     this.calculateTilesOnScreen()
+    this.calcuateCenterPosition()
   }
 
   private calculateTilesOnScreen() {
     this.tileOnScreenX = Math.ceil(window.innerWidth / this.sizeX / this.currentTransform.scale);
     this.tileOnScreenY = Math.ceil(window.innerHeight / this.sizeY / this.currentTransform.scale);
+  }
+
+  private  calcuateCenterPosition() {
+      const transform = {
+        x:this.currentTransform.x - window.innerWidth/2, 
+        y:this.currentTransform.y - window.innerHeight/2, 
+        scale:this.currentTransform.scale
+      }
+      this.centerPositionX = Math.floor((-transform.x/this.sizeX - transform.y/this.sizeY)/transform.scale)
+      this.centerPositionY = Math.floor((transform.x/this.sizeX - transform.y/this.sizeY)/transform.scale + 0.5)
+      if(
+          Math.abs(this.centerPositionX - this.previousCenterPositionX) +
+          Math.abs(this.centerPositionY - this.previousCenterPositionY) >=
+          this.distanceToUpdate
+        ) {
+        this.updateTiles.emit({x:this.centerPositionX, y:this.centerPositionY})
+          this.previousCenterPositionX = this.centerPositionX
+          this.previousCenterPositionY = this.centerPositionY
+      }
   }
 
   public getTransformX(x: number, y:number) {

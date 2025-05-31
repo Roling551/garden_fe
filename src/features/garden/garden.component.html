@@ -5,6 +5,7 @@
     [tileTemplate]="tileTemplate"
     [backgroundImage]="backgroundImage"
     (tileClick)="onTileClick($event)"
+    (updateTiles)="onUpdateTiles($event)"
 />
 
 <ng-template #tileTemplate let-value="value">

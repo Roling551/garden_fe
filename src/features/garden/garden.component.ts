@@ -53,4 +53,8 @@ export class GardenComponent implements OnInit {
   onTileClick(tile: {key:{x:number, y:number}, value: string}) {
     console.log(tile)
   }
+
+  onUpdateTiles(center: {x:number, y:number}) {
+    console.log("update", center.x, center.y);
+  }
 }
