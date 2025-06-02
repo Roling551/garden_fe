@@ -17,7 +17,7 @@
 </div>
 
 <ng-template #fullTileTemplate let-x="x" let-y="y">
-    @if(tilesData.getKeyValue({x, y}); as tile) {
+    @if(tilesData.get(x+"-"+y); as tile) {
         <div
             class="item"
             [style.left.px]="getTransformX(x, y)"

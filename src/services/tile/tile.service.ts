@@ -14,7 +14,7 @@ export class TileService {
     console.time('myTimer');
     for(let i = -range; i <= range; i++) {
       for(let j = -range; j <= range; j++) {
-        tiles.push({key:{x:i+x, y:j+y}, value:{name:"t0"}})
+        tiles.push(new Tile({x:i+x, y:j+y}, {name:"t0"}))
       } 
     }
     console.timeEnd('myTimer');

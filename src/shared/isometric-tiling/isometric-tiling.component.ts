@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { AfterViewInit, Component, HostListener, Input, input, OnInit, output, signal, TemplateRef } from '@angular/core';
 import panzoom, { PanZoom, Transform } from 'panzoom';
-import { DeepMap } from '../../util/deepMap';
 
 @Component({
   selector: 'app-isometric-tiling',
@@ -10,7 +9,7 @@ import { DeepMap } from '../../util/deepMap';
   styleUrl: './isometric-tiling.component.scss'
 })
 export class IsometricTilingComponent<T> implements OnInit, AfterViewInit {
-  @Input({required: true}) tilesData! : DeepMap<{x:number, y:number}, T>;
+  @Input({required: true}) tilesData! : Map<string, T>;
   @Input() minZoom = 0.5;
   @Input() maxZoom = 6;
 
