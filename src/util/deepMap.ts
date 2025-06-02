@@ -14,7 +14,7 @@ export class DeepMap<K, V> {
 
     public keyValuePairs = signal<{key: K, value: V}[]>([])
 
-    public set(key: any, value: V) {
+    public set({key, value}: {key: any, value: V}) {
         let searched = this.map
         for (let i = 0; i < this.fields.length - 1; i++) {
             const field = this.fields[i];
@@ -44,6 +44,11 @@ export class DeepMap<K, V> {
             }
         }
         return searched as V
+    }
+
+    public getKeyValue(key: any): {key: K, value: V} | null {
+        const value = this.get(key)
+        return value ? {key, value} : null
     }
 
     _updateKeyValuePairs() {
