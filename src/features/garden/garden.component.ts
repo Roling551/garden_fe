@@ -25,7 +25,7 @@ export class GardenComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onTileClick(tile: {key:{x:number, y:number}, value: {name: string}}) {
+  onTileClick(tile: {key:{x:number, y:number}, value: Tile}) {
     console.log(tile)
   }
 

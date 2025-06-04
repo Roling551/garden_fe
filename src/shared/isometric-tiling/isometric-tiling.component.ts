@@ -91,11 +91,13 @@ export class IsometricTilingComponent<T> implements OnInit, AfterViewInit {
       this.centerPositionX = Math.floor((-transform.x/this.sizeX - transform.y/this.sizeY)/transform.scale)
       this.centerPositionY = Math.floor((transform.x/this.sizeX - transform.y/this.sizeY)/transform.scale + 0.5)
       if(
-          Math.abs(this.centerPositionX - this.previousCenterPositionX) +
-          Math.abs(this.centerPositionY - this.previousCenterPositionY) >=
-          this.distanceToUpdate
+            !this.previousCenterPositionX
+          ||
+            Math.abs(this.centerPositionX - this.previousCenterPositionX) +
+            Math.abs(this.centerPositionY - this.previousCenterPositionY) >=
+            this.distanceToUpdate
         ) {
-        this.updateTiles.emit({x:this.centerPositionX, y:this.centerPositionY})
+          this.updateTiles.emit({x:this.centerPositionX, y:this.centerPositionY})
           this.previousCenterPositionX = this.centerPositionX
           this.previousCenterPositionY = this.centerPositionY
       }
