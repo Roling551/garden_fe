@@ -8,8 +8,8 @@
     (updateTiles)="onUpdateTiles($event)"
 />
 
-<ng-template #tileTemplate let-value="value">
-    <img src="assets/pictures/ground.png"
+<ng-template #tileTemplate let-tile="tile">
+    <img [src]="getTexture(tile.value.name)"
         [style.top.px]="(sizeY-sizeX)/2"
         alt="My Image"
     >

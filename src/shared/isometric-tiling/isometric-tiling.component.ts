@@ -110,13 +110,19 @@ export class IsometricTilingComponent<T> implements OnInit, AfterViewInit {
     return (this.sizeY * (x + y)) / 2
   }
 
-  public onTileClick(tileData:{key:{x:number, y:number}, value:T}) {
-    if(
-      !this.panStartTransform || 
-      this.getOnScreenTransformDistance(this.panStartTransform, this.currentTransform) < this.allowedPixelsMovedForClick
-    ) {
-      this.tileClick.emit(tileData)
-    }
+  public onTileClick(tileData:{key:{x:number, y:number}, value:any}) {
+    // console.log("click")
+    // if(
+    //   !this.panStartTransform || 
+    //   this.getOnScreenTransformDistance(this.panStartTransform, this.currentTransform) < this.allowedPixelsMovedForClick
+    // ) {
+    //   this.tileClick.emit(tileData)
+    // } else {
+    //   console.log("click didnt happen")
+    //   console.log(this.panStartTransform)
+    //   console.log(this.getOnScreenTransformDistance(this.panStartTransform, this.currentTransform))
+    // }
+    this.tileClick.emit(tileData)
     this.panStartTransform = null
   }
 

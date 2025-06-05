@@ -15,7 +15,7 @@ export class GardenComponent implements OnInit {
   public sizeX = 128
   public sizeY = 92
 
-  readonly range = 20
+  readonly range = 8
 
   public backgroundImage = "url('/assets/pictures/fog.png')"
 
@@ -26,7 +26,9 @@ export class GardenComponent implements OnInit {
   }
 
   onTileClick(tile: {key:{x:number, y:number}, value: Tile}) {
-    console.log(tile)
+    this.tileService.waterTile(tile.key.x,tile.key.y).subscribe(tile=>{
+      this.items.set(tile.getKey(), tile)
+    });
   }
 
   onUpdateTiles(center: {x:number, y:number}) {
@@ -38,5 +40,9 @@ export class GardenComponent implements OnInit {
           console.timeEnd('mapTimer');
     })
     console.log("update", center.x, center.y);
+  }
+
+  getTexture(name: string): string {
+    return `assets/pictures/${name}.png`
   }
 }

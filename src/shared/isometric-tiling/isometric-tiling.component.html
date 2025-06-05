@@ -22,6 +22,7 @@
             class="item"
             [style.left.px]="getTransformX(x, y)"
             [style.top.px]="getTransformY(x, y)"
+            (click)="onTileClick({key:{x, y}, value: tile})"
         >
             <div
                 class="diamond"
@@ -29,7 +30,7 @@
                 [style.height.px]="sizeY"
                 >
             </div>
-            <ng-container *ngTemplateOutlet="tileTemplate"></ng-container>
+            <ng-container *ngTemplateOutlet="tileTemplate; context:{tile: tile}"></ng-container>
         </div>
     }
 </ng-template>
